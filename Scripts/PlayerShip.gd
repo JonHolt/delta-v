@@ -29,12 +29,16 @@ func sim_end():
 	_predict_path()	
 	
 func select():
+	if state == ACTIVE:
+		return
 	get_tree().call_group(globals.PLAYER_GROUP, 'new_ship_selected', get_instance_id())
 	state = SELECTED
 	$underglow.visible = true
 	_show_accel()
 
 func new_ship_selected(id):
+	if state == ACTIVE:
+		return
 	if get_instance_id() != id:
 		_clear_accel()
 		state = IDLE

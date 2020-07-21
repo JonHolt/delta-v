@@ -7,6 +7,8 @@
 
 [node name="TestLevel" type="Node2D"]
 
+[node name="starfield" parent="." instance=ExtResource( 4 )]
+
 [node name="TimeKeeper" parent="." instance=ExtResource( 2 )]
 
 [node name="PlayerShip" parent="." instance=ExtResource( 1 )]
@@ -30,5 +32,3 @@ script = ExtResource( 3 )
 zoom_out_limit = 15
 camera_speed = 500
 camera_margin = 5
-
-[node name="starfield" parent="RTS-Camera2D" instance=ExtResource( 4 )]

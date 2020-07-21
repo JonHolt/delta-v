@@ -4,6 +4,9 @@ shader_type canvas_item;
 
 uniform int RES = 5;
 uniform vec2 offset = vec2(0.0, 0.0);
+uniform float cellNum = 20.0;
+uniform float starSize = 0.06;
+uniform float starBr = 0.6;
 
 varying vec2 vtx;
 
@@ -40,21 +43,12 @@ float stars(in vec2 x, float numCells, float size, float br)
 	return br * (smoothstep(.95, 1., (1. - sqrt(d))));
 }
 
-vec4 mainImage(vec2 fragCoord)
-{
-	//vec2 st = fragCoord.xy / viewport_size.xy;
-	//st.y *= viewport_size.y/viewport_size.x;
-	vec3 result = stars(fragCoord * 20.0, 4., 0.06, 0.6) * vec3(.9, .9, .95);
-	
-	return vec4(result, 1.);
-}
-
-void vertex()
-{
-	vtx = VERTEX + offset;
-}
-
 void fragment()
 {
-	COLOR = mainImage(vtx * float(RES));
+	vec2 coord = UV * float(RES);
+	 //stars(coord * 20.0, 4., 0.06, 0.6) * vec3(.9, .9, .95);
+	vec3 result = stars(coord + FRAGCOORD.yx * 0.0005, 4., 0.1, 2.) * vec3(.74, .74, .74);
+    result += stars(coord + FRAGCOORD.yx* 0.00005, 8., 0.05, 1.) * vec3(.97, .74, .74);
+	
+	COLOR = vec4(result, 1);
 }

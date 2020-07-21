@@ -5,13 +5,16 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
-shader_param/RES = 10
+shader_param/RES = 6
 shader_param/offset = Vector2( 0, 0 )
+shader_param/cellNum = 6.0
+shader_param/starSize = 0.2
+shader_param/starBr = 1
 
 [node name="starfield" type="ParallaxBackground"]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.01, 0.01 )
+motion_scale = Vector2( 0.5, 0.5 )
 motion_mirroring = Vector2( 1920, 1080 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer"]

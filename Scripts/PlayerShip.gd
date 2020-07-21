@@ -28,10 +28,11 @@ func sim_end():
 	acceleration = Vector2(0,0)
 	_predict_path()	
 	
-func select():
+func select(add = false):
 	if state == ACTIVE:
 		return
-	get_tree().call_group(globals.PLAYER_GROUP, 'new_ship_selected', get_instance_id())
+	if !add:
+		get_tree().call_group(globals.PLAYER_GROUP, 'new_ship_selected', get_instance_id())
 	state = SELECTED
 	$underglow.visible = true
 	_show_accel()
@@ -118,4 +119,4 @@ func _selected_input():
 
 func _on_PlayerShip_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		select()
+		select(Input.is_action_pressed("ship_add"))

@@ -15,10 +15,15 @@ func _process(delta):
 		_cycle_forward()
 	if Input.is_action_just_pressed("ship_cycle_back"):
 		_cycle_back()
+	if Input.is_action_just_pressed("squad_select"):
+		_select_all()
 
 
 func _on_Timer_timeout():
 	 get_tree().call_group(SIM_GROUP, "sim_end")
+
+func _select_all():
+	get_tree().call_group(PLAYER_GROUP, "select", true)
 
 #Helpers
 func _cycle_forward():

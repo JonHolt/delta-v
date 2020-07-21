@@ -5,11 +5,11 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
-shader_param/RES = 6
+shader_param/RES = 10
 shader_param/offset = Vector2( 0, 0 )
-shader_param/cellNum = 6.0
-shader_param/starSize = 0.2
-shader_param/starBr = 1
+shader_param/cellNum = 20.0
+shader_param/starSize = 0.06
+shader_param/starBr = 0.6
 
 [node name="starfield" type="ParallaxBackground"]
 

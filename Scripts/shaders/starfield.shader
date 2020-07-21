@@ -47,7 +47,7 @@ void fragment()
 {
 	vec2 coord = UV * float(RES);
 	 //stars(coord * 20.0, 4., 0.06, 0.6) * vec3(.9, .9, .95);
-	vec3 result = stars(coord + FRAGCOORD.yx * 0.0005, 4., 0.1, 2.) * vec3(.74, .74, .74);
+	vec3 result = stars(coord + FRAGCOORD.yx * 0.00025, 4., 0.1, 2.) * vec3(.74, .74, .74);
     result += stars(coord + FRAGCOORD.yx* 0.00005, 8., 0.05, 1.) * vec3(.97, .74, .74);
 	
 	COLOR = vec4(result, 1);

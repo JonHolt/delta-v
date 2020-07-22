@@ -6,12 +6,14 @@ const PREDICTION_STEPS = 10
 enum { ACTIVE, IDLE, SELECTED }
 const MAX_ACCEL = 100
 const SHIFT_SPEED = 5
+const COLLISION_BOUNCE_FACTOR = .8
 
 var velocity = Vector2(0,0)
 var acceleration = Vector2(0,0)
 var state = IDLE
 
 func _ready():
+	print(get_instance_id())
 	add_to_group(globals.SIMULATED)
 	add_to_group(globals.PLAYER_GROUP)
 	_predict_path()
@@ -48,6 +50,10 @@ func new_ship_selected(id):
 func is_selected():
 	return state == SELECTED
 
+func get_hit(id, impact_velocity):
+	if get_instance_id() == id:
+		velocity += impact_velocity * COLLISION_BOUNCE_FACTOR
+
 #processes
 func _process(delta):
 	match state:
@@ -63,6 +69,13 @@ func _physics_process(delta):
 	if state == ACTIVE:
 		velocity += acceleration * delta
 		velocity = move_and_slide(velocity)
+		if get_slide_count() > 0:
+			var collision = get_slide_collision(0)
+			var relative_velocity = velocity - collision.collider_velocity
+			var impact_vel = collision.normal * relative_velocity.length() * COLLISION_BOUNCE_FACTOR
+			get_tree().call_group(globals.SIMULATED, "get_hit", collision.collider_id, impact_vel * -1)
+			velocity += impact_vel * COLLISION_BOUNCE_FACTOR
+		
 		if abs(velocity.length_squared()) < 1:
 			velocity = Vector2(0,0)
 

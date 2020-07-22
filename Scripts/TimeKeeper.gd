@@ -7,7 +7,7 @@ export var step_time = 1
 func _ready():
 	$Timer.wait_time = step_time
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("commit"):
 		get_tree().call_group(SIM_GROUP, "sim_start")
 		$Timer.start()
